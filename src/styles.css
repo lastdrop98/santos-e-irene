@@ -59,6 +59,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-dark: var(--gold-dark);
+  --font-script: "Great Vibes", cursive;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -95,6 +101,18 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Convite de casamento */
+  --background: oklch(0.993 0.008 95);          /* #FFFDF8 */
+  --foreground: oklch(0.32 0.008 80);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.32 0.008 80);
+  --muted-foreground: oklch(0.55 0.005 80);     /* #6B6B6B */
+  --gold: oklch(0.72 0.083 82);                 /* #C6A15B */
+  --gold-soft: oklch(0.675 0.079 79);           /* #B8935A */
+  --gold-dark: oklch(0.585 0.083 78);           /* #9C7A3E */
+  --border: oklch(0.9 0.02 85);
+  --shadow-soft: 0 18px 40px -22px oklch(0.585 0.083 78 / 0.45);
 }
 
 .dark {
@@ -141,4 +159,45 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-weight: 300;
+  }
+}
+
+@utility font-script {
+  font-family: var(--font-script);
+}
+
+@utility font-serif {
+  font-family: var(--font-serif);
+}
+
+@utility arch-frame {
+  border-radius: 50% 50% 12px 12px / 32% 32% 4% 4%;
+  overflow: hidden;
+}
+
+@utility pulse-soft {
+  animation: pulse-soft 2.8s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.72 0.083 82 / 0.5); }
+  60% { box-shadow: 0 0 0 14px oklch(0.72 0.083 82 / 0); }
+}
+
+@keyframes invite-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@utility fade-up {
+  animation: invite-fade-up 0.9s ease-out both;
 }
