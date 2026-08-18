@@ -61,6 +61,7 @@ function Convite() {
         <Fecho />
       </main>
       <BottomNav />
+      <MusicaFundo />
     </div>
   );
 }
