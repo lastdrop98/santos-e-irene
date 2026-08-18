@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { wedding } from "@/config/wedding";
 import { BottomNav } from "@/components/invite/BottomNav";
+import { MusicaFundo } from "@/components/invite/MusicaFundo";
 import { Hero } from "@/components/invite/sections/Hero";
 import { Versiculo } from "@/components/invite/sections/Versiculo";
 import { OsNoivos } from "@/components/invite/sections/OsNoivos";
