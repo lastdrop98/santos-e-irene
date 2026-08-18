@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       },
       {
         name: "description",
-        content: `Convite digital do casamento de ${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}, ${wedding.dataExtenso}, em ${wedding.local.nome}, Maputo. Confirme a sua presença.`,
+        content: `Convite digital de casamento de ${wedding.noivo.nome} e ${wedding.noiva.nome}. Junte-se a nós no dia ${wedding.dataCurta}, em ${wedding.local.nome}, Maputo. Confirme a sua presença e celebre este momento connosco.`,
       },
       {
         property: "og:title",
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:description",
-        content: `Junte-se a nós no dia ${wedding.dataCurta} em ${wedding.local.nome}, Maputo.`,
+        content: `Convite digital de casamento de ${wedding.noivo.nome} e ${wedding.noiva.nome}. Junte-se a nós no dia ${wedding.dataCurta}, em ${wedding.local.nome}, Maputo. Confirme a sua presença e celebre este momento connosco.`,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
