@@ -16,15 +16,15 @@ export const wedding = {
   noivo: {
     nome: "Santos Viniato Bonde",
     primeiroNome: "Santos",
-    pai: "[Nome do Pai]",
-    mae: "[Nome da Mãe]",
+    pai: "Viriato Santos Bonde",
+    mae: "Antoninha Falso Lamo",
     contacto: "+258 82 787 8636",
   },
   noiva: {
     nome: "Irene Fernanda Pequenino",
     primeiroNome: "Irene",
-    pai: "[Nome do Pai]",
-    mae: "[Nome da Mãe]",
+    pai: "Dinis Rafael Pequenino",
+    mae: "Olga Laurinda Mavanga",
     contacto: "+258 84 656 8622",
   },
   monograma: "S&I",
@@ -36,9 +36,9 @@ export const wedding = {
   dataExtenso: "Sábado, 28 de Novembro de 2026",
 
   agenda: [
-    { titulo: "Cerimónia Civil", hora: "A confirmar" },
+    { titulo: "Cerimónia Civil", hora: "15h" },
     { titulo: "Cerimónia Religiosa", hora: "A confirmar" },
-    { titulo: "Copo d'Água", hora: "A confirmar" },
+    { titulo: "Copo d'Água", hora: "16h" },
   ],
 
   local: {
@@ -74,7 +74,11 @@ export const wedding = {
   },
 
   musica: "Music Background: [Artista – Faixa]",
-  negocio: "[NOME DO NEGÓCIO]",
+  negocio: {
+    autor: "Shelton Barreto",
+    whatsapp: "847404160",
+    email: "sheltonbarreto79@gmail.com",
+  },
 
   fotos: {
     capa: heroCouple,
