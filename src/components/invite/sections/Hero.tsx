@@ -25,7 +25,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="fade-up flex flex-col items-center" style={{ animationDelay: "0.2s" }}>
+        <div className="fade-up mt-[20vh] flex flex-col items-center" style={{ animationDelay: "0.2s" }}>
           <p className="text-[10px] tracking-[0.35em] text-background/85">
             A UNIÃO MATRIMONIAL DE
           </p>
