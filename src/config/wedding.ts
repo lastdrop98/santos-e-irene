@@ -3,14 +3,12 @@
  * Altere apenas este ficheiro para mudar nomes, datas, textos, fotos e links.
  */
 
-import heroCouple from "@/assets/hero-couple.jpg";
-import coupleArch from "@/assets/couple-arch.jpg";
-import countdownCouple from "@/assets/countdown-couple.jpg";
-import closingCouple from "@/assets/closing-couple.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import foto1 from "@/assets/foto-1.jpeg.asset.json";
+import foto2 from "@/assets/foto-2.jpeg.asset.json";
+import foto3 from "@/assets/foto-3.jpeg.asset.json";
+import foto4 from "@/assets/foto-4.jpeg.asset.json";
+import foto5 from "@/assets/foto-5.jpeg.asset.json";
+import foto7 from "@/assets/foto-7.jpeg.asset.json";
 
 export const wedding = {
   noivo: {
@@ -18,14 +16,14 @@ export const wedding = {
     primeiroNome: "Santos",
     pai: "Viriato Santos Bonde",
     mae: "Antoninha Falso Lamo",
-    contacto: "+258 82 787 8636",
+    contacto: "827878636",
   },
   noiva: {
     nome: "Irene Fernanda Pequenino",
     primeiroNome: "Irene",
     pai: "Dinis Rafael Pequenino",
     mae: "Olga Laurinda Mavanga",
-    contacto: "+258 84 656 8622",
+    contacto: "846560622",
   },
   monograma: "S&I",
   hashtag: "#SantosEIrene2026",
@@ -40,6 +38,12 @@ export const wedding = {
     { titulo: "Cerimónia Religiosa", hora: "A confirmar" },
     { titulo: "Copo d'Água", hora: "16h" },
   ],
+
+  igreja: {
+    nome: "Igreja São Pedro São Paulo",
+    morada: "Bairro 25 de Junho — Maputo",
+    mapa: "https://maps.google.com/?q=Igreja+Sao+Pedro+Sao+Paulo+Bairro+25+de+Junho+Maputo",
+  },
 
   local: {
     nome: "Gabriela Eventos",
@@ -81,10 +85,10 @@ export const wedding = {
   },
 
   fotos: {
-    capa: heroCouple,
-    noivos: coupleArch,
-    contador: countdownCouple,
-    fecho: closingCouple,
-    galeria: [gallery1, gallery2, gallery3, gallery4],
+    capa: foto1.url,
+    noivos: foto2.url,
+    contador: foto3.url,
+    fecho: foto4.url,
+    galeria: [foto1.url, foto2.url, foto3.url, foto4.url, foto7.url, foto5.url],
   },
 };

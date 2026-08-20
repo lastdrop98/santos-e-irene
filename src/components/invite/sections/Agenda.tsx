@@ -1,4 +1,4 @@
-import { CalendarDays, Diamond, MapPin, Navigation } from "lucide-react";
+import { CalendarDays, Church, Diamond, MapPin, Navigation } from "lucide-react";
 import { Reveal } from "@/components/invite/Reveal";
 import { wedding } from "@/config/wedding";
 
@@ -27,6 +27,28 @@ export function Agenda() {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-10">
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-px w-10 bg-gold/50" />
+              <Church className="text-gold" size={20} strokeWidth={1.3} />
+              <span className="h-px w-10 bg-gold/50" />
+            </div>
+            <p className="mt-5 font-serif text-xl font-semibold text-foreground">
+              {wedding.igreja.nome}
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {wedding.igreja.morada}
+            </p>
+            <a
+              href={wedding.igreja.mapa}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-muted px-7 py-3 text-[11px] tracking-[0.25em] text-foreground/80 transition-colors hover:bg-muted/70"
+            >
+              <MapPin size={14} /> MAPA
+            </a>
           </div>
 
           <div className="mt-10">
