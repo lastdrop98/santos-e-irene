@@ -5,7 +5,7 @@ const items = [
   { id: "capa", label: "Início", Icon: Home },
   { id: "noivos", label: "Noivos", Icon: Users },
   { id: "galeria", label: "Galeria", Icon: Image },
-  { id: "rsvp", label: "RSVP", Icon: Gift },
+  { id: "rsvp", label: "Confirmar Presença", Icon: Gift },
   { id: "agenda", label: "Agenda", Icon: Calendar },
 ];
 

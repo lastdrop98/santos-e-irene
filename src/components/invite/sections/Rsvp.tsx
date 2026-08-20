@@ -19,7 +19,7 @@ export function Rsvp() {
   return (
     <section id="rsvp" className="bg-background px-8 py-16">
       <Reveal>
-        <h2 className="text-center font-script text-4xl text-gold">R.S.V.P.</h2>
+        <h2 className="text-center font-script text-4xl text-gold">Confirmar Presença</h2>
 
         <form
           action={wedding.rsvp.endpoint || undefined}
@@ -84,8 +84,24 @@ export function Rsvp() {
           {wedding.rsvp.prazo}
         </p>
         <p className="mt-3 text-center text-[11px] text-muted-foreground">
-          {wedding.noivo.primeiroNome}: {wedding.noivo.contacto} · {wedding.noiva.primeiroNome}:{" "}
-          {wedding.noiva.contacto}
+          Contactos (WhatsApp e chamadas):{" "}
+          <a
+            href={`https://wa.me/258${wedding.noivo.contacto}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold-dark"
+          >
+            {wedding.noivo.primeiroNome} {wedding.noivo.contacto}
+          </a>{" "}
+          ·{" "}
+          <a
+            href={`https://wa.me/258${wedding.noiva.contacto}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold-dark"
+          >
+            {wedding.noiva.primeiroNome} {wedding.noiva.contacto}
+          </a>
         </p>
       </Reveal>
     </section>
