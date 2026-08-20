@@ -3,14 +3,12 @@
  * Altere apenas este ficheiro para mudar nomes, datas, textos, fotos e links.
  */
 
-import heroCouple from "@/assets/hero-couple.jpg";
-import coupleArch from "@/assets/couple-arch.jpg";
-import countdownCouple from "@/assets/countdown-couple.jpg";
-import closingCouple from "@/assets/closing-couple.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import foto1 from "@/assets/foto-1.jpeg.asset.json";
+import foto2 from "@/assets/foto-2.jpeg.asset.json";
+import foto3 from "@/assets/foto-3.jpeg.asset.json";
+import foto4 from "@/assets/foto-4.jpeg.asset.json";
+import foto5 from "@/assets/foto-5.jpeg.asset.json";
+import foto7 from "@/assets/foto-7.jpeg.asset.json";
 
 export const wedding = {
   noivo: {
