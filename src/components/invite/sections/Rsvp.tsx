@@ -1,16 +1,64 @@
 import { useState, type FormEvent } from "react";
+import { toast } from "sonner";
 import { Reveal } from "@/components/invite/Reveal";
 import { wedding } from "@/config/wedding";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Rsvp() {
   const [enviado, setEnviado] = useState(false);
+  const [aEnviar, setAEnviar] = useState(false);
 
-  // Ligue wedding.rsvp.endpoint a um serviço tipo Formspree/EmailJS quando quiser.
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    if (!wedding.rsvp.endpoint) {
-      e.preventDefault();
-      setEnviado(true);
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const nome = String(fd.get("nome") ?? "").trim();
+    const presenca = String(fd.get("presenca") ?? "sim");
+    const acompanhantes = Number(fd.get("acompanhantes") ?? 0);
+    const mensagem = String(fd.get("mensagem") ?? "").trim();
+
+    if (nome.length < 2 || nome.length > 100) {
+      toast.error("Indique o seu nome completo.");
+      return;
     }
+    if (!Number.isFinite(acompanhantes) || acompanhantes < 0 || acompanhantes > 20) {
+      toast.error("Número de acompanhantes inválido.");
+      return;
+    }
+    if (mensagem.length > 1000) {
+      toast.error("Mensagem demasiado longa.");
+      return;
+    }
+
+    setAEnviar(true);
+    const { error } = await supabase.from("confirmacoes").insert({
+      nome,
+      presenca,
+      acompanhantes,
+      mensagem,
+    });
+    setAEnviar(false);
+
+    if (error) {
+      toast.error("Não foi possível registar. Tente novamente.");
+      return;
+    }
+
+    setEnviado(true);
+    form.reset();
+
+    const texto =
+      `Olá ${wedding.noiva.primeiroNome}! Confirmação de presença — ${wedding.monograma}\n` +
+      `Nome: ${nome}\n` +
+      `Presença: ${presenca === "sim" ? "Vou comparecer" : "Não poderei comparecer"}\n` +
+      `Acompanhantes: ${acompanhantes}` +
+      (mensagem ? `\nMensagem: ${mensagem}` : "");
+
+    window.open(
+      `https://wa.me/258${wedding.rsvp.whatsapp}?text=${encodeURIComponent(texto)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   const fieldClass =
@@ -21,17 +69,12 @@ export function Rsvp() {
       <Reveal>
         <h2 className="text-center font-script text-4xl text-gold">Confirmar Presença</h2>
 
-        <form
-          action={wedding.rsvp.endpoint || undefined}
-          method="POST"
-          onSubmit={onSubmit}
-          className="mt-8 space-y-6"
-        >
+        <form onSubmit={onSubmit} className="mt-8 space-y-6">
           <div>
             <label className="text-xs tracking-[0.12em] text-foreground/80" htmlFor="nome">
               Nome e Apelido <span className="text-gold">*</span>
             </label>
-            <input id="nome" name="nome" required className={fieldClass} />
+            <input id="nome" name="nome" required maxLength={100} className={fieldClass} />
             <p className="mt-2 text-[11px] text-muted-foreground">Ex: António João</p>
           </div>
 
@@ -54,6 +97,7 @@ export function Rsvp() {
               name="acompanhantes"
               type="number"
               min={0}
+              max={20}
               defaultValue={0}
               className={fieldClass}
             />
@@ -63,20 +107,22 @@ export function Rsvp() {
             <label className="text-xs tracking-[0.12em] text-foreground/80" htmlFor="mensagem">
               Mensagem para os noivos
             </label>
-            <textarea id="mensagem" name="mensagem" rows={4} className={fieldClass} />
+            <textarea id="mensagem" name="mensagem" rows={4} maxLength={1000} className={fieldClass} />
           </div>
 
           <button
             type="submit"
-            className="w-full rounded-md bg-foreground/80 py-3 text-sm tracking-[0.15em] text-background transition-colors hover:bg-foreground"
+            disabled={aEnviar}
+            className="w-full rounded-md bg-foreground/80 py-3 text-sm tracking-[0.15em] text-background transition-colors hover:bg-foreground disabled:opacity-60"
           >
-            Submeter
+            {aEnviar ? "A ENVIAR…" : "SUBMETER E ENVIAR POR WHATSAPP"}
           </button>
         </form>
 
         {enviado && (
           <p className="mt-4 text-center text-xs text-gold-dark">
-            Obrigado! (formulário de demonstração — ligue o endpoint para receber as respostas)
+            Confirmação registada! Se o WhatsApp não abrir, envie a mensagem para{" "}
+            {wedding.rsvp.whatsapp}.
           </p>
         )}
 
