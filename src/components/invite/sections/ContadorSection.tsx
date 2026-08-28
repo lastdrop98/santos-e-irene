@@ -13,7 +13,7 @@ export function ContadorSection() {
             width={896}
             height={1152}
             loading="lazy"
-            className="h-[320px] w-full object-cover"
+            className="h-[320px] w-full object-cover object-[center_15%]"
           />
         </div>
       </Reveal>
