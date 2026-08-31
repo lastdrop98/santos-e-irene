@@ -20,6 +20,32 @@ export function Presente() {
           </div>
         </div>
       </Reveal>
+
+      <Reveal delay={120}>
+        <div className="mt-6 rounded-3xl bg-card px-6 py-8 shadow-[var(--shadow-soft)]">
+          <p className="text-center font-serif text-lg italic text-gold-dark">
+            Sugestão de Presentes
+          </p>
+          <div className="mt-6 grid grid-cols-2 gap-4">
+            {wedding.presente.lista.map((item) => (
+              <div
+                key={item.nome}
+                className="overflow-hidden rounded-2xl border border-gold/20 bg-background shadow-sm"
+              >
+                <img
+                  src={item.foto}
+                  alt={item.nome}
+                  className="h-24 w-full object-cover"
+                  loading="lazy"
+                />
+                <p className="px-3 py-2 text-center text-xs font-medium text-foreground/85">
+                  {item.nome}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
