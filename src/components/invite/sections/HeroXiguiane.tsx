@@ -5,12 +5,7 @@ import { wedding } from "@/config/wedding";
 export function HeroXiguiane() {
   const [badge, setBadge] = useState<string | null>(null);
 
-  useEffect(() => {
-    const tipo = new URLSearchParams(window.location.search).get("tipo");
-    if (tipo === "individual") setBadge("Convite válido para 1 pessoa");
-    else if (tipo === "casal") setBadge("Convite válido para 2 pessoas");
-  }, []);
-
+  useEffect(() => { const tipo = new URLSearchParams(window.location.search).get("tipo"); if (tipo === "individual") setBadge("Convite válido para 1 pessoa"); else setBadge("Convite válido para 2 pessoas"); }, []); 
   const scroll = () => document.getElementById("agenda")?.scrollIntoView({ behavior: "smooth" });
 
   return (
