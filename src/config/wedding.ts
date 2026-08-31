@@ -47,8 +47,16 @@ export const wedding = {
 
   local: {
     nome: "Gabriela Eventos",
-    morada: "Intak, Talhão 340, Parcela 161 — Maputo",
+    morada: "Intaka, Talhão 340, Parcela 161 — Maputo",
     mapa: "https://maps.google.com/?q=Intak+Talhao+340+Parcela+161+Maputo",
+  },
+  xiguiane: { 
+    dataExtenso: "Domingo, 29 de Novembro de 2026", 
+    hora: "A confirmar", 
+    local: { 
+      nome: "Xiguiane — Casa da Noiva", 
+      morada: "Morada a confirmar", 
+      mapa: "https://maps.google.com/?q=Maputo", },
   },
 
   versiculoCapa: {
@@ -69,6 +77,7 @@ export const wedding = {
     conta: "[Número da conta]",
     nib: "[NIB]",
     titular: "[Nome do titular]",
+     lista: [ "Jogo de Panelas", "Máquina de Lavar Roupa", "Jogo de Lençóis e Toalhas", "Liquidificador", "Micro-ondas", ],
   },
 
   rsvp: {
