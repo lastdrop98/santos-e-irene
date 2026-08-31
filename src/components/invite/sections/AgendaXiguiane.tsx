@@ -25,7 +25,7 @@ export function AgendaXiguiane() {
             <p className="mt-5 font-serif text-xl font-semibold text-foreground">{wedding.xiguiane.local.nome}</p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{wedding.xiguiane.local.morada}</p>
             
-              href={wedding.xiguiane.local.mapa}
+              <a href={wedding.xiguiane.local.mapa}
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-muted px-7 py-3 text-[11px] tracking-[0.25em] text-foreground/80 transition-colors hover:bg-muted/70"
