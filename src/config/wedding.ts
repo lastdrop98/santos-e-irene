@@ -77,7 +77,16 @@ export const wedding = {
     conta: "[Número da conta]",
     nib: "[NIB]",
     titular: "[Nome do titular]",
-     lista: [ "Jogo de Panelas", "Máquina de Lavar Roupa", "Jogo de Lençóis e Toalhas", "Liquidificador", "Micro-ondas", ],
+     lista: [ { nome: "Jogo de Panelas", 
+               foto: "https://images.unsplash.com/photo-1556911164-1297abe8527c?fm=jpg&q=80&w=1200&auto=format&fit=crop" }, 
+             { nome: "Máquina de Lavar Roupa", 
+              foto: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?fm=jpg&q=80&w=1200&auto=format&fit=crop" }, 
+             { nome: "Jogo de Lençóis e Toalhas", 
+              foto: "https://images.unsplash.com/photo-1702501543049-4cb666eeda15?fm=jpg&q=80&w=1200&auto=format&fit=crop" }, 
+             { nome: "Liquidificador", 
+              foto: "https://images.unsplash.com/photo-1654064754916-e3edeb09c042?fm=jpg&q=80&w=1200&auto=format&fit=crop" }, 
+             { nome: "Micro-ondas", 
+              foto: "https://images.unsplash.com/photo-1589241534732-26031c00f37c?fm=jpg&q=80&w=1200&auto=format&fit=crop" }, ],
   },
 
   rsvp: {
