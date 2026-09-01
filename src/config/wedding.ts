@@ -54,9 +54,9 @@ export const wedding = {
     dataExtenso: "Domingo, 29 de Novembro de 2026", 
     hora: "A confirmar", 
     local: { 
-      nome: "Xiguiane — Casa da Noiva", 
-      morada: "Morada a confirmar", 
-      mapa: "https://maps.google.com/?q=Maputo", },
+      nome: "Paróquia Nossa Senhora do Rosário", 
+      morada: "Hulene B, Maputo (Salão do Xiguiane)", 
+      mapa: "https://maps.google.com/?q=Paroquia+Nossa+Senhora+do+Rosario+Hulene+B+Maputo", },
   },
 
   versiculoCapa: {
