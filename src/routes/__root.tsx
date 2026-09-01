@@ -8,7 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-
+import { wedding } from "@/config/wedding";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -77,11 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Santos & Irene — Convite de Casamento" },
-      { name: "description", content: "Convite digital de casamento de Santos Viniato Bonde e Irene Fernanda Pequenino. Junte-se a nós no dia 28 de Novembro de 2026, em Gabriela Eventos, Maputo. Confirme a sua presença e celebre este momento connosco." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Santos & Irene — Convite de Casamento" },
-      { property: "og:description", content: "Convite digital de casamento de Santos Viniato Bonde e Irene Fernanda Pequenino. Junte-se a nós no dia 28 de Novembro de 2026, em Gabriela Eventos, Maputo. Confirme a sua presença e celebre este momento connosco." },
+{ title: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Convite de Casamento` }, { name: "description", content: `Convite digital de casamento de ${wedding.noivo.nome} e ${wedding.noiva.nome}. Junte-se a nós no dia ${wedding.dataExtenso}, em ${wedding.local.nome}, Maputo. Confirme a sua presença e celebre este momento connosco.` }, { name: "author", content: "Lovable" }, { property: "og:title", content: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Convite de Casamento` }, { property: "og:description", content: `Convite digital de casamento de ${wedding.noivo.nome} e ${wedding.noiva.nome}. Junte-se a nós no dia ${wedding.dataExtenso}, em ${wedding.local.nome}, Maputo. Confirme a sua presença e celebre este momento connosco.` },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
