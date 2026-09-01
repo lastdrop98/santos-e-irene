@@ -12,11 +12,21 @@ export function Presente() {
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
             {wedding.presente.texto}
           </p>
-          <div className="mt-6 space-y-1 text-sm text-foreground/85">
-            <p>{wedding.presente.banco}</p>
-            <p>Conta: {wedding.presente.conta}</p>
-            <p>NIB: {wedding.presente.nib}</p>
-            <p>{wedding.presente.titular}</p>
+          <div className="mt-6 space-y-4">
+            {wedding.presente.contas.map((conta) => (
+              <div
+                key={conta.banco}
+                className="rounded-2xl border border-gold/20 bg-background p-5 text-left shadow-sm"
+              >
+                <p className="text-sm font-semibold text-foreground/90">
+                  {conta.titular}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{conta.banco}</p>
+                <p className="mt-1 font-mono text-sm tracking-wide text-foreground/85">
+                  NIB: {conta.nib}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </Reveal>
@@ -25,6 +35,9 @@ export function Presente() {
         <div className="mt-6 rounded-3xl bg-card px-6 py-8 shadow-[var(--shadow-soft)]">
           <p className="text-center font-serif text-lg italic text-gold-dark">
             Sugestão de Presentes
+          </p>
+          <p className="mt-2 text-center text-xs text-muted-foreground">
+            {wedding.presente.notaLista}
           </p>
           <div className="mt-6 grid grid-cols-2 gap-4">
             {wedding.presente.lista.map((item) => (
