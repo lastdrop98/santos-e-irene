@@ -5,7 +5,7 @@ import { wedding } from "@/config/wedding";
 export function HeroXiguiane() {
   const [badge, setBadge] = useState<string | null>(null);
 
-  useEffect(() => { const tipo = new URLSearchParams(window.location.search).get("tipo"); if (tipo === "individual") setBadge("Convite válido para 1 pessoa"); else setBadge("Convite válido para 2 pessoas"); }, []); 
+  useEffect(() => { const tipo = new URLSearchParams(window.location.search).get("tipo"); if (tipo === "individual") setBadge("individual"); else setBadge("casal"); }, []); 
   const scroll = () => document.getElementById("agenda")?.scrollIntoView({ behavior: "smooth" });
 
   return (
@@ -33,8 +33,9 @@ export function HeroXiguiane() {
           </p>
           <p className="mt-3 text-xs tracking-[0.3em] text-background/85">{wedding.xiguiane.dataExtenso}</p>
           {badge && (
-            <p className="mt-4 rounded-full border border-gold/60 px-4 py-1.5 text-[10px] tracking-[0.2em] text-gold">
-              {badge}
+            <p className="mt-5 flex items-center gap-2.5 rounded-full bg-gold px-6 py-2.5 text-xs font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.55)] ring-1 ring-gold-soft/70">
+              {badge === "individual" ? <User size={15} strokeWidth={2.5} /> : <Users size={15} strokeWidth={2.5} />}
+              {badge === "individual" ? "CONVITE VÁLIDO PARA 1 PESSOA" : "CONVITE VÁLIDO PARA 2 PESSOAS"}
             </p>
           )}
         </div>
