@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { ChevronDown, User, Users } from "lucide-react";
 import { wedding } from "@/config/wedding";
 
-export function Hero() {
-  const [badge, setBadge] = useState<string | null>(null);
+export function Hero({ tipoFixo }: { tipoFixo?: "individual" | "casal" }) {
+  const [badge, setBadge] = useState<string | null>(tipoFixo ?? null);
 
   useEffect(() => {
+    if (tipoFixo) return;
     const tipo = new URLSearchParams(window.location.search).get("tipo");
     if (tipo === "individual") setBadge("individual");
     else setBadge("casal");
-  }, []);
+  }, [tipoFixo]);
+
 
   const scroll = () =>
     document.getElementById("versiculo")?.scrollIntoView({ behavior: "smooth" });
