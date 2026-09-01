@@ -11,10 +11,19 @@ import { Fecho } from "@/components/invite/sections/Fecho";
 export const Route = createFileRoute("/domingo")({
   head: () => ({
     meta: [
-       { title: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Xiguiane` }, { name: "description", content: `Convite para o Xiguiane de ${wedding.noivo.nome}
-       ${wedding.noiva.nome}.`, }, { property: "og:title", content: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Xiguiane` }, { property: "og:description", content: `Convite para o Xiguiane de ${wedding.noivo.nome} 
-       ${wedding.noiva.nome}, ${wedding.xiguiane.dataExtenso}.`, }, { property: "og:image", content: wedding.fotos.capa }, { name: "twitter:card", content: "summary_large_image" }, { name: "twitter:image", content: wedding.fotos.capa },
-    
+      { title: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Xiguiane` },
+      {
+        name: "description",
+        content: `Convite para o Xiguiane de ${wedding.noivo.nome} e ${wedding.noiva.nome}.`,
+      },
+      { property: "og:title", content: `${wedding.noivo.primeiroNome} & ${wedding.noiva.primeiroNome} — Xiguiane` },
+      {
+        property: "og:description",
+        content: `Convite para o Xiguiane de ${wedding.noivo.nome} e ${wedding.noiva.nome}, ${wedding.xiguiane.dataExtenso}.`,
+      },
+      { property: "og:image", content: wedding.fotos.capa },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: wedding.fotos.capa },
     ],
   }),
   component: ConviteDomingo,
