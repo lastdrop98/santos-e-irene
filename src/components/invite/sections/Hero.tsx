@@ -1,7 +1,16 @@
-import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronDown, User, Users } from "lucide-react";
 import { wedding } from "@/config/wedding";
 
 export function Hero() {
+  const [badge, setBadge] = useState<string | null>(null);
+
+  useEffect(() => {
+    const tipo = new URLSearchParams(window.location.search).get("tipo");
+    if (tipo === "individual") setBadge("individual");
+    else setBadge("casal");
+  }, []);
+
   const scroll = () =>
     document.getElementById("versiculo")?.scrollIntoView({ behavior: "smooth" });
 
@@ -35,6 +44,12 @@ export function Hero() {
           <p className="mt-3 text-xs tracking-[0.3em] text-background/85">
             {wedding.dataCurta}
           </p>
+          {badge && (
+            <p className="mt-5 flex items-center gap-2.5 rounded-full bg-gold px-6 py-2.5 text-xs font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.55)] ring-1 ring-gold-soft/70">
+              {badge === "individual" ? <User size={15} strokeWidth={2.5} /> : <Users size={15} strokeWidth={2.5} />}
+              {badge === "individual" ? "CONVITE VÁLIDO PARA 1 PESSOA" : "CONVITE VÁLIDO PARA 2 PESSOAS"}
+            </p>
+          )}
         </div>
 
         <div className="fade-up flex flex-col items-center gap-4" style={{ animationDelay: "0.4s" }}>
