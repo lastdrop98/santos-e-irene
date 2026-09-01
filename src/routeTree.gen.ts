@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DomingoRouteImport } from './routes/domingo'
+import { Route as IndividualRouteImport } from './routes/individual'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DomingoRoute = DomingoRouteImport.update({
@@ -22,31 +29,44 @@ const DomingoRoute = DomingoRouteImport.update({
   path: '/domingo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndividualRoute = IndividualRouteImport.update({
+  id: '/individual',
+  path: '/individual',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
+  '/individual': typeof IndividualRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
+  '/individual': typeof IndividualRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
+  '/individual': typeof IndividualRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/domingo'
+  fullPaths: '/' | '/auth' | '/domingo' | '/individual'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/domingo'
-  id: '__root__' | '/' | '/domingo'
+  to: '/' | '/auth' | '/domingo' | '/individual'
+  id: '__root__' | '/' | '/auth' | '/domingo' | '/individual'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   DomingoRoute: typeof DomingoRoute
+  IndividualRoute: typeof IndividualRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/domingo': {
       id: '/domingo'
       path: '/domingo'
@@ -65,12 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DomingoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/individual': {
+      id: '/individual'
+      path: '/individual'
+      fullPath: '/individual'
+      preLoaderRoute: typeof IndividualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   DomingoRoute: DomingoRoute,
+  IndividualRoute: IndividualRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
