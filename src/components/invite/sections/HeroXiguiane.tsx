@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, User, Users } from "lucide-react";
 import { wedding } from "@/config/wedding";
 
 export function HeroXiguiane() {
