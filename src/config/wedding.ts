@@ -12,7 +12,7 @@ import foto7 from "@/assets/foto-7.jpeg.asset.json";
 
 export const wedding = {
   noivo: {
-    nome: "Santos Viniato Bonde",
+    nome: "Santos Viriato Bonde",
     primeiroNome: "Santos",
     pai: "Viriato Santos Bonde",
     mae: "Antoninha Falso Lamo",
