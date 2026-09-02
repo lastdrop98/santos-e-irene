@@ -23,7 +23,7 @@ export function Presente() {
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{conta.banco}</p>
                 <p className="mt-1 font-mono text-sm tracking-wide text-foreground/85">
-                  NIB: {conta.nib}
+                  {conta.nib ? `NIB: ${conta.nib}` : `Número: ${conta.numero}`}
                 </p>
               </div>
             ))}

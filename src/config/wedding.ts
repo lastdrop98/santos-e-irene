@@ -35,9 +35,9 @@ export const wedding = {
   dataExtenso: "Sábado, 28 de Novembro de 2026",
 
   agenda: [
-    { titulo: "Cerimónia Civil", hora: "15h" },
+    { titulo: "Cerimónia Civil", hora: "14h" },
     { titulo: "Cerimónia Religiosa", hora: "A confirmar" },
-    { titulo: "Copo d'Água", hora: "16h" },
+    { titulo: "Copo d'Água", hora: "15h" },
   ],
 
   igreja: {
@@ -53,7 +53,7 @@ export const wedding = {
   },
   xiguiane: { 
     dataExtenso: "Domingo, 29 de Novembro de 2026", 
-    hora: "A confirmar", 
+    hora: "15h", 
     local: { 
       nome: "Paróquia Nossa Senhora do Rosário", 
       morada: "Hulene B, Maputo (Salão do Xiguiane)", 
@@ -77,6 +77,7 @@ export const wedding = {
     contas: [
       { banco: "BIM", nib: "0001 0000 0017 8994 3925 7", titular: "Santos" },
       { banco: "BCI", nib: "0008 0000 6029 2145 1012 8", titular: "Irene" },
+      { banco: "e-Mola", numero: "877 878 636", titular: "Viriato Santos" },
     ],
     notaLista: "Nota: estes artigos são da Casa das Loiças",
     lista: [
