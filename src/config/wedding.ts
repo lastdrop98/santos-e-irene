@@ -9,6 +9,7 @@ import foto3 from "@/assets/foto-3.jpeg.asset.json";
 import foto4 from "@/assets/foto-4.jpeg.asset.json";
 import foto5 from "@/assets/foto-5.jpeg.asset.json";
 import foto7 from "@/assets/foto-7.jpeg.asset.json";
+import pirexOval from "@/assets/pirex-oval.jpg.asset.json";
 
 export const wedding = {
   noivo: {
@@ -93,7 +94,7 @@ export const wedding = {
       { nome: "Máquina de Lavar Roupa", foto: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?fm=jpg&q=80&w=1200&auto=format&fit=crop" },
       { nome: "Jogo de Jantar", foto: "https://images.unsplash.com/photo-1594057096503-fb2d12c6c3d2?fm=jpg&q=80&w=1200&auto=format&fit=crop" },
       { nome: "Jogo de Pirex", foto: "https://images.unsplash.com/photo-1622428051717-dcd8412959de?fm=jpg&q=80&w=1200&auto=format&fit=crop" },
-      { nome: "Pirex Oval Grande com Tampa Plástica", foto: "https://images.unsplash.com/photo-1622428051717-dcd8412959de?fm=jpg&q=80&w=1200&auto=format&fit=crop" },
+      { nome: "Pirex Oval Grande com Tampa Plástica", foto: pirexOval.url },
       { nome: "Taças (Água, Vinho, Champanhe)", foto: "https://images.unsplash.com/photo-1729420906097-64e4759b5265?fm=jpg&q=80&w=1200&auto=format&fit=crop" },
     ],
   },
