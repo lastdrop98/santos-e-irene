@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, Printer } from "lucide-react";
+import { useRef, useState } from "react";
 import { wedding } from "@/config/wedding";
 
 export const Route = createFileRoute("/imprimir")({
@@ -43,13 +44,64 @@ const printStyles = `
 `;
 
 function ImprimirPage() {
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = "/convite-fisico-santos-irene.pdf";
-    link.download = "convite-fisico-santos-irene.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const [aPreparar, setAPreparar] = useState(false);
+  const conviteRef = useRef<HTMLElement>(null);
+
+  const handleDownload = async () => {
+    const elemento = conviteRef.current;
+    if (!elemento || aPreparar) return;
+
+    setAPreparar(true);
+    try {
+      const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+        import("html2canvas"),
+        import("jspdf"),
+      ]);
+
+      const canvas = await html2canvas(elemento, {
+        useCORS: true,
+        scale: 2,
+        backgroundColor: "#000000",
+        logging: false,
+        ignoreElements: (el) => el.classList?.contains("no-print") ?? false,
+      });
+
+      const imagem = canvas.toDataURL("image/jpeg", 0.92);
+
+      // A5 em mm
+      const pdfWidth = 148;
+      const pdfHeight = 210;
+      const proporcao = canvas.height / canvas.width;
+      const imgHeight = pdfWidth * proporcao;
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a5",
+      });
+
+      if (imgHeight <= pdfHeight) {
+        pdf.addImage(imagem, "JPEG", 0, 0, pdfWidth, imgHeight);
+      } else {
+        // Conteúdo mais alto que uma página: distribui por várias páginas A5
+        let posicao = 0;
+        let restante = imgHeight;
+        pdf.addImage(imagem, "JPEG", 0, posicao, pdfWidth, imgHeight);
+        restante -= pdfHeight;
+        while (restante > 0) {
+          posicao -= pdfHeight;
+          pdf.addPage();
+          pdf.addImage(imagem, "JPEG", 0, posicao, pdfWidth, imgHeight);
+          restante -= pdfHeight;
+        }
+      }
+
+      pdf.save("convite-santos-irene.pdf");
+    } catch (erro) {
+      console.error("Erro ao gerar o PDF:", erro);
+    } finally {
+      setAPreparar(false);
+    }
   };
 
   const handlePrint = () => {
@@ -59,7 +111,10 @@ function ImprimirPage() {
   return (
     <>
       <style>{printStyles}</style>
-      <section className="print-exact print-auto-height relative min-h-[100svh] w-full overflow-hidden bg-background">
+      <section
+        ref={conviteRef}
+        className="print-exact print-auto-height relative min-h-[100svh] w-full overflow-hidden bg-background"
+      >
         <img
           src={wedding.fotos.capa}
           alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
@@ -133,10 +188,11 @@ function ImprimirPage() {
           <div className="no-print flex flex-col items-center gap-4 sm:flex-row">
             <button
               onClick={handleDownload}
-              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
+              disabled={aPreparar}
+              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft disabled:cursor-wait disabled:opacity-70"
             >
               <Download size={18} strokeWidth={2.5} />
-              BAIXAR CONVITE EM PDF
+              {aPreparar ? "A PREPARAR…" : "BAIXAR CONVITE EM PDF"}
             </button>
             <button
               onClick={handlePrint}
