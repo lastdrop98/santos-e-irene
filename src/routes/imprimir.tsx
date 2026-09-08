@@ -52,16 +52,22 @@ function ImprimirPage() {
     document.body.removeChild(link);
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-background">
-      <img
-        src={wedding.fotos.capa}
-        alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
-        width={896}
-        height={1408}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
+    <>
+      <style>{printStyles}</style>
+      <section className="print-exact print-auto-height relative min-h-[100svh] w-full overflow-hidden bg-background">
+        <img
+          src={wedding.fotos.capa}
+          alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
+          width={896}
+          height={1408}
+          className="absolute inset-0 h-full w-full object-cover print-exact"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 print-exact" />
 
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center px-8 py-16 text-center">
         <div className="flex max-w-2xl flex-col items-center gap-8">
