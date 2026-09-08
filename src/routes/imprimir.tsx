@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, Printer } from "lucide-react";
+import { useRef, useState } from "react";
 import { wedding } from "@/config/wedding";
 
 export const Route = createFileRoute("/imprimir")({
@@ -186,10 +187,11 @@ function ImprimirPage() {
           <div className="no-print flex flex-col items-center gap-4 sm:flex-row">
             <button
               onClick={handleDownload}
-              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
+              disabled={aPreparar}
+              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft disabled:cursor-wait disabled:opacity-70"
             >
               <Download size={18} strokeWidth={2.5} />
-              BAIXAR CONVITE EM PDF
+              {aPreparar ? "A PREPARAR…" : "BAIXAR CONVITE EM PDF"}
             </button>
             <button
               onClick={handlePrint}
