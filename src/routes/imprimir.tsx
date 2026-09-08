@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download } from "lucide-react";
+import { Download, Printer } from "lucide-react";
 import { wedding } from "@/config/wedding";
 
 export const Route = createFileRoute("/imprimir")({
@@ -26,6 +26,21 @@ export const Route = createFileRoute("/imprimir")({
   }),
   component: ImprimirPage,
 });
+
+const printStyles = `
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    .print-exact {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .print-auto-height {
+      min-height: auto !important;
+    }
+  }
+`;
 
 function ImprimirPage() {
   const handleDownload = () => {
