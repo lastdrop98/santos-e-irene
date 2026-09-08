@@ -130,15 +130,25 @@ function ImprimirPage() {
             </div>
           </div>
 
-          <button
-            onClick={handleDownload}
-            className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
-          >
-            <Download size={18} strokeWidth={2.5} />
-            BAIXAR CONVITE EM PDF
-          </button>
+          <div className="no-print flex flex-col items-center gap-4 sm:flex-row">
+            <button
+              onClick={handleDownload}
+              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
+            >
+              <Download size={18} strokeWidth={2.5} />
+              BAIXAR CONVITE EM PDF
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center gap-3 rounded-full border border-gold/70 bg-black/40 px-8 py-4 text-sm font-semibold tracking-[0.15em] text-gold backdrop-blur-sm transition-colors hover:bg-gold/10"
+            >
+              <Printer size={18} strokeWidth={2.5} />
+              IMPRIMIR AGORA
+            </button>
+          </div>
         </div>
       </div>
     </section>
+    </>
   );
 }
