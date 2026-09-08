@@ -63,6 +63,7 @@ function ImprimirPage() {
         scale: 2,
         backgroundColor: "#000000",
         logging: false,
+        ignoreElements: (el) => el.classList?.contains("no-print") ?? false,
       });
 
       const imagem = canvas.toDataURL("image/jpeg", 0.92);
