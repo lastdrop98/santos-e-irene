@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download } from "lucide-react";
+import { Download, Printer } from "lucide-react";
 import { wedding } from "@/config/wedding";
 
 export const Route = createFileRoute("/imprimir")({
@@ -27,6 +27,21 @@ export const Route = createFileRoute("/imprimir")({
   component: ImprimirPage,
 });
 
+const printStyles = `
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    .print-exact {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .print-auto-height {
+      min-height: auto !important;
+    }
+  }
+`;
+
 function ImprimirPage() {
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -37,16 +52,22 @@ function ImprimirPage() {
     document.body.removeChild(link);
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-background">
-      <img
-        src={wedding.fotos.capa}
-        alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
-        width={896}
-        height={1408}
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
+    <>
+      <style>{printStyles}</style>
+      <section className="print-exact print-auto-height relative min-h-[100svh] w-full overflow-hidden bg-background">
+        <img
+          src={wedding.fotos.capa}
+          alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
+          width={896}
+          height={1408}
+          className="absolute inset-0 h-full w-full object-cover print-exact"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 print-exact" />
 
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center px-8 py-16 text-center">
         <div className="flex max-w-2xl flex-col items-center gap-8">
@@ -109,15 +130,25 @@ function ImprimirPage() {
             </div>
           </div>
 
-          <button
-            onClick={handleDownload}
-            className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
-          >
-            <Download size={18} strokeWidth={2.5} />
-            BAIXAR CONVITE EM PDF
-          </button>
+          <div className="no-print flex flex-col items-center gap-4 sm:flex-row">
+            <button
+              onClick={handleDownload}
+              className="flex items-center gap-3 rounded-full bg-gold px-10 py-4 text-sm font-semibold tracking-[0.15em] text-background shadow-[0_0_24px_rgba(212,175,55,0.45)] transition-colors hover:bg-gold-soft"
+            >
+              <Download size={18} strokeWidth={2.5} />
+              BAIXAR CONVITE EM PDF
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center gap-3 rounded-full border border-gold/70 bg-black/40 px-8 py-4 text-sm font-semibold tracking-[0.15em] text-gold backdrop-blur-sm transition-colors hover:bg-gold/10"
+            >
+              <Printer size={18} strokeWidth={2.5} />
+              IMPRIMIR AGORA
+            </button>
+          </div>
         </div>
       </div>
     </section>
+    </>
   );
 }
