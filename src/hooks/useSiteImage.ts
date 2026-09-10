@@ -5,16 +5,14 @@ let cache: Promise<Record<string, string>> | null = null;
 
 export function loadSiteImages(): Promise<Record<string, string>> {
   if (!cache) {
-    cache = supabase
-      .from("site_images")
-      .select("key,url")
-      .then(({ data }) => {
-        const map: Record<string, string> = {};
-        (data || []).forEach((row) => {
-          map[row.key] = row.url;
-        });
-        return map;
+    cache = (async () => {
+      const { data } = await supabase.from("site_images").select("key,url");
+      const map: Record<string, string> = {};
+      (data || []).forEach((row) => {
+        map[row.key] = row.url;
       });
+      return map;
+    })();
   }
   return cache;
 }
