@@ -74,24 +74,6 @@ export type Database = {
         }
         Relationships: []
       }
-      site_images: {
-        Row: {
-          key: string
-          updated_at: string
-          url: string
-        }
-        Insert: {
-          key: string
-          updated_at?: string
-          url: string
-        }
-        Update: {
-          key?: string
-          updated_at?: string
-          url?: string
-        }
-        Relationships: []
-      }
       user_roles: {
         Row: {
           created_at: string

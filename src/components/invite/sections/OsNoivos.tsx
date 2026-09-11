@@ -1,10 +1,7 @@
 import { Reveal } from "@/components/invite/Reveal";
 import { wedding } from "@/config/wedding";
-import { useSiteImage } from "@/hooks/useSiteImage";
 
 export function OsNoivos() {
-  const foto = useSiteImage("noivos", wedding.fotos.noivos);
-
   return (
     <section id="noivos" className="bg-background px-8 pb-16 pt-6 text-center">
       <Reveal>
@@ -13,7 +10,7 @@ export function OsNoivos() {
       <Reveal delay={120}>
         <div className="arch-frame mx-auto mt-8 w-[78%] border border-gold/40">
           <img
-            src={foto}
+            src={wedding.fotos.noivos}
             alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
             width={896}
             height={1152}

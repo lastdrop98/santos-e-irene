@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { ChevronDown, User, Users } from "lucide-react";
 import { wedding } from "@/config/wedding";
-import { useSiteImage } from "@/hooks/useSiteImage";
 
 export function Hero({ tipoFixo }: { tipoFixo?: "individual" | "casal" }) {
   const [badge, setBadge] = useState<string | null>(tipoFixo ?? null);
-  const capa = useSiteImage("capa", wedding.fotos.capa);
 
   useEffect(() => {
     if (tipoFixo) return;
@@ -21,7 +19,7 @@ export function Hero({ tipoFixo }: { tipoFixo?: "individual" | "casal" }) {
   return (
     <section id="capa" className="relative h-[100svh] w-full overflow-hidden">
       <img
-        src={capa}
+        src={wedding.fotos.capa}
         alt={`${wedding.noivo.primeiroNome} e ${wedding.noiva.primeiroNome}`}
         width={896}
         height={1408}
