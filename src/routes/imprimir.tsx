@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, Printer } from "lucide-react";
 import { useRef, useState } from "react";
-import { toJpeg } from "html-to-image";
 import { jsPDF } from "jspdf";
 import { wedding } from "@/config/wedding";
 
@@ -57,65 +56,142 @@ function ImprimirPage() {
   const programaRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
-    const elemento = conviteRef.current;
-    if (!elemento || aPreparar) return;
-
+    if (aPreparar) return;
     setAPreparar(true);
     try {
-      // Remove efeitos que dificultam a captura (backdrop-blur) durante a renderização
-      elemento.classList.add("capturing");
-      programaRef.current?.classList.add("capture-clean");
+      const W = 148;
+      const H = 210;
+      const meio = W / 2;
+      const dourado: [number, number, number] = [201, 168, 76];
+      const creme: [number, number, number] = [245, 240, 225];
 
-      const imagem = await toJpeg(elemento, {
-        pixelRatio: 2,
-        quality: 0.92,
-        backgroundColor: "#000000",
-        filter: (node) => !node.classList?.contains("no-print"),
-      });
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a5" });
 
-      // A5 em mm
-      const pdfWidth = 148;
-      const pdfHeight = 210;
-
-      // A imagem do toJpeg é JPEG em base64; obtemos as dimensões reais
-      const img = new Image();
-      img.src = imagem;
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = reject;
-      });
-
-      const proporcao = img.height / img.width;
-      const imgHeight = pdfWidth * proporcao;
-
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a5",
-      });
-
-      if (imgHeight <= pdfHeight) {
-        pdf.addImage(imagem, "JPEG", 0, 0, pdfWidth, imgHeight);
-      } else {
-        // Conteúdo mais alto que uma página: distribui por várias páginas A5
-        let posicao = 0;
-        let restante = imgHeight;
-        pdf.addImage(imagem, "JPEG", 0, posicao, pdfWidth, imgHeight);
-        restante -= pdfHeight;
-        while (restante > 0) {
-          posicao -= pdfHeight;
-          pdf.addPage();
-          pdf.addImage(imagem, "JPEG", 0, posicao, pdfWidth, imgHeight);
-          restante -= pdfHeight;
-        }
+      // Fundo: foto de capa
+      try {
+        const resposta = await fetch(wedding.fotos.capa);
+        const blob = await resposta.blob();
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result as string);
+          fr.onerror = reject;
+          fr.readAsDataURL(blob);
+        });
+        const img = new Image();
+        img.src = base64;
+        await new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = reject;
+        });
+        // cobre a página inteira mantendo proporção (object-cover)
+        const escala = Math.max(W / img.width, H / img.height);
+        const larg = img.width * escala;
+        const alt = img.height * escala;
+        pdf.addImage(base64, "JPEG", (W - larg) / 2, (H - alt) / 2, larg, alt);
+      } catch {
+        pdf.setFillColor(15, 15, 15);
+        pdf.rect(0, 0, W, H, "F");
       }
+
+      // Véu escuro
+      pdf.setGState(pdf.GState({ opacity: 0.68 }));
+      pdf.setFillColor(0, 0, 0);
+      pdf.rect(0, 0, W, H, "F");
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+
+      // Moldura dourada
+      pdf.setDrawColor(...dourado);
+      pdf.setLineWidth(0.4);
+      pdf.rect(8, 8, W - 16, H - 16);
+
+      let y = 26;
+
+      pdf.setFont("times", "italic");
+      pdf.setFontSize(20);
+      pdf.setTextColor(...dourado);
+      pdf.text(wedding.monograma, meio, y, { align: "center" });
+
+      y += 12;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7.5);
+      pdf.setTextColor(...creme);
+      pdf.text("A UNIÃO MATRIMONIAL DE", meio, y, { align: "center" });
+
+      y += 12;
+      pdf.setFont("times", "italic");
+      pdf.setFontSize(22);
+      pdf.setTextColor(...dourado);
+      pdf.text(wedding.noivo.nome, meio, y, { align: "center" });
+      y += 8;
+      pdf.setFontSize(12);
+      pdf.text("&", meio, y, { align: "center" });
+      y += 9;
+      pdf.setFontSize(22);
+      pdf.text(wedding.noiva.nome, meio, y, { align: "center" });
+
+      y += 10;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8.5);
+      pdf.setTextColor(...creme);
+      pdf.text(wedding.dataExtenso, meio, y, { align: "center" });
+
+      y += 9;
+      pdf.setFontSize(8);
+      pdf.text(`Filho de ${wedding.noivo.pai} e ${wedding.noivo.mae}`, meio, y, {
+        align: "center",
+      });
+      y += 5;
+      pdf.text(`Filha de ${wedding.noiva.pai} e ${wedding.noiva.mae}`, meio, y, {
+        align: "center",
+      });
+
+      y += 12;
+      pdf.setFont("times", "italic");
+      pdf.setFontSize(11);
+      pdf.setTextColor(...creme);
+      const versiculo = pdf.splitTextToSize(`“${wedding.versiculoCapa.texto}”`, W - 40);
+      pdf.text(versiculo, meio, y, { align: "center" });
+      y += versiculo.length * 5.5 + 4;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7.5);
+      pdf.setTextColor(...dourado);
+      pdf.text(wedding.versiculoCapa.referencia, meio, y, { align: "center" });
+
+      // Programa do dia
+      y += 14;
+      pdf.setDrawColor(...dourado);
+      pdf.setLineWidth(0.3);
+      pdf.line(30, y - 6, W - 30, y - 6);
+      pdf.setFontSize(8);
+      pdf.setTextColor(...dourado);
+      pdf.text("PROGRAMA DO DIA", meio, y, { align: "center" });
+
+      y += 9;
+      pdf.setFontSize(10);
+      pdf.setTextColor(...creme);
+      pdf.text("Cerimónia Civil — 14h", meio, y, { align: "center" });
+
+      y += 8;
+      pdf.text("Cerimónia Religiosa", meio, y, { align: "center" });
+      y += 5;
+      pdf.setFontSize(8);
+      pdf.text(`${wedding.igreja.nome}, ${wedding.igreja.morada}`, meio, y, {
+        align: "center",
+      });
+
+      y += 9;
+      pdf.setFontSize(10);
+      pdf.text("Copo d'Água — 15h", meio, y, { align: "center" });
+      y += 5;
+      pdf.setFontSize(8);
+      pdf.text(`${wedding.local.nome}, ${wedding.local.morada}`, meio, y, {
+        align: "center",
+      });
 
       pdf.save("convite-santos-irene.pdf");
     } catch (erro) {
       console.error("Erro ao gerar o PDF:", erro);
     } finally {
-      elemento.classList.remove("capturing");
-      programaRef.current?.classList.remove("capture-clean");
       setAPreparar(false);
     }
   };

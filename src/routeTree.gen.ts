@@ -10,8 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DomingoRouteImport } from './routes/domingo'
 import { Route as ImprimirRouteImport } from './routes/imprimir'
 import { Route as IndividualRouteImport } from './routes/individual'
@@ -21,14 +21,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DomingoRoute = DomingoRouteImport.update({
@@ -49,16 +49,16 @@ const IndividualRoute = IndividualRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
   '/imprimir': typeof ImprimirRoute
   '/individual': typeof IndividualRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
   '/imprimir': typeof ImprimirRoute
   '/individual': typeof IndividualRoute
@@ -66,22 +66,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
   '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/domingo': typeof DomingoRoute
   '/imprimir': typeof ImprimirRoute
   '/individual': typeof IndividualRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/admin' | '/domingo' | '/imprimir' | '/individual'
+  fullPaths: '/' | '/admin' | '/auth' | '/domingo' | '/imprimir' | '/individual'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/admin' | '/domingo' | '/imprimir' | '/individual'
+  to: '/' | '/admin' | '/auth' | '/domingo' | '/imprimir' | '/individual'
   id:
     | '__root__'
     | '/'
-    | '/auth'
     | '/admin'
+    | '/auth'
     | '/domingo'
     | '/imprimir'
     | '/individual'
@@ -89,8 +89,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthRoute: typeof AuthRoute
   AdminRoute: typeof AdminRoute
+  AuthRoute: typeof AuthRoute
   DomingoRoute: typeof DomingoRoute
   ImprimirRoute: typeof ImprimirRoute
   IndividualRoute: typeof IndividualRoute
@@ -105,18 +105,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/domingo': {
@@ -145,8 +145,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthRoute: AuthRoute,
   AdminRoute: AdminRoute,
+  AuthRoute: AuthRoute,
   DomingoRoute: DomingoRoute,
   ImprimirRoute: ImprimirRoute,
   IndividualRoute: IndividualRoute,
