@@ -33,7 +33,7 @@ const printStyles = `
   .capturing .capture-clean {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    background: rgba(0, 0, 0, 0.65) !important;
+    background: rgba(0, 0, 0, 0.78) !important;
   }
 
   @media print {
