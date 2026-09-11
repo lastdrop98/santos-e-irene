@@ -63,7 +63,7 @@ function ImprimirPage() {
       const H = 210;
       const meio = W / 2;
       const dourado: [number, number, number] = [201, 168, 76];
-      const creme: [number, number, number] = [245, 240, 225];
+      const creme: [number, number, number] = [222, 196, 145];
 
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a5" });
 
