@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, Printer } from "lucide-react";
 import { useRef, useState } from "react";
-import { toJpeg } from "html-to-image";
 import { jsPDF } from "jspdf";
 import { wedding } from "@/config/wedding";
 
