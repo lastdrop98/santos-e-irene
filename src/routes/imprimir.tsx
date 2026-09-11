@@ -93,97 +93,137 @@ function ImprimirPage() {
         pdf.rect(0, 0, W, H, "F");
       }
 
-      // Véu escuro
-      pdf.setGState(pdf.GState({ opacity: 0.68 }));
+      // Véu escuro mais intenso para texto bem legível
+      pdf.setGState(pdf.GState({ opacity: 0.82 }));
       pdf.setFillColor(0, 0, 0);
       pdf.rect(0, 0, W, H, "F");
       pdf.setGState(pdf.GState({ opacity: 1 }));
 
       // Moldura dourada
       pdf.setDrawColor(...dourado);
-      pdf.setLineWidth(0.4);
+      pdf.setLineWidth(0.5);
       pdf.rect(8, 8, W - 16, H - 16);
 
-      let y = 26;
+      // Helper para sombra de texto (traço escuro por trás)
+      const desenharTextoComSombra = (
+        texto: string | string[],
+        x: number,
+        yPos: number,
+        options?: { align?: "left" | "center" | "right"; lineHeightFactor?: number }
+      ) => {
+        const align = options?.align ?? "left";
+        pdf.setTextColor(0, 0, 0);
+        const offset = 0.25;
+        if (Array.isArray(texto)) {
+          pdf.text(texto, x + offset, yPos + offset, { align, lineHeightFactor: options?.lineHeightFactor });
+          pdf.setTextColor(...creme);
+          pdf.text(texto, x, yPos, { align, lineHeightFactor: options?.lineHeightFactor });
+        } else {
+          pdf.text(texto, x + offset, yPos + offset, { align });
+          pdf.setTextColor(...creme);
+          pdf.text(texto, x, yPos, { align });
+        }
+      };
+
+      let y = 24;
 
       pdf.setFont("times", "italic");
-      pdf.setFontSize(20);
+      pdf.setFontSize(22);
       pdf.setTextColor(...dourado);
       pdf.text(wedding.monograma, meio, y, { align: "center" });
 
       y += 12;
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
       pdf.setTextColor(...creme);
-      pdf.text("A UNIÃO MATRIMONIAL DE", meio, y, { align: "center" });
+      desenharTextoComSombra("A UNIÃO MATRIMONIAL DE", meio, y, { align: "center" });
 
-      y += 12;
+      y += 13;
       pdf.setFont("times", "italic");
-      pdf.setFontSize(22);
+      pdf.setFontSize(23);
       pdf.setTextColor(...dourado);
       pdf.text(wedding.noivo.nome, meio, y, { align: "center" });
       y += 8;
-      pdf.setFontSize(12);
+      pdf.setFontSize(13);
       pdf.text("&", meio, y, { align: "center" });
       y += 9;
-      pdf.setFontSize(22);
+      pdf.setFontSize(23);
       pdf.text(wedding.noiva.nome, meio, y, { align: "center" });
 
-      y += 10;
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(8.5);
-      pdf.setTextColor(...creme);
-      pdf.text(wedding.dataExtenso, meio, y, { align: "center" });
+      y += 11;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(9);
+      desenharTextoComSombra(wedding.dataExtenso, meio, y, { align: "center" });
 
       y += 9;
-      pdf.setFontSize(8);
-      pdf.text(`Filho de ${wedding.noivo.pai} e ${wedding.noivo.mae}`, meio, y, {
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8.5);
+      desenharTextoComSombra(`Filho de ${wedding.noivo.pai} e ${wedding.noivo.mae}`, meio, y, {
         align: "center",
       });
-      y += 5;
-      pdf.text(`Filha de ${wedding.noiva.pai} e ${wedding.noiva.mae}`, meio, y, {
+      y += 5.5;
+      desenharTextoComSombra(`Filha de ${wedding.noiva.pai} e ${wedding.noiva.mae}`, meio, y, {
         align: "center",
       });
 
-      y += 12;
+      y += 13;
+      // Fundo escuro por trás do versículo para maior legibilidade
+      pdf.setGState(pdf.GState({ opacity: 0.55 }));
+      pdf.setFillColor(0, 0, 0);
+      const versiculoPreview = pdf.splitTextToSize(`“${wedding.versiculoCapa.texto}”`, W - 36);
+      const alturaVersiculo = versiculoPreview.length * 5.8 + 10;
+      pdf.roundedRect(14, y - 5, W - 28, alturaVersiculo, 3, 3, "F");
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+
       pdf.setFont("times", "italic");
-      pdf.setFontSize(11);
+      pdf.setFontSize(11.5);
       pdf.setTextColor(...creme);
-      const versiculo = pdf.splitTextToSize(`“${wedding.versiculoCapa.texto}”`, W - 40);
-      pdf.text(versiculo, meio, y, { align: "center" });
-      y += versiculo.length * 5.5 + 4;
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(7.5);
+      pdf.text(versiculoPreview, meio, y + 3, { align: "center" });
+      y += versiculoPreview.length * 5.8 + 6;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(8);
       pdf.setTextColor(...dourado);
       pdf.text(wedding.versiculoCapa.referencia, meio, y, { align: "center" });
 
       // Programa do dia
-      y += 14;
+      y += 15;
+      pdf.setGState(pdf.GState({ opacity: 0.65 }));
+      pdf.setFillColor(0, 0, 0);
+      const alturaPrograma = 52;
+      pdf.roundedRect(14, y - 8, W - 28, alturaPrograma, 4, 4, "F");
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+
       pdf.setDrawColor(...dourado);
-      pdf.setLineWidth(0.3);
-      pdf.line(30, y - 6, W - 30, y - 6);
-      pdf.setFontSize(8);
+      pdf.setLineWidth(0.35);
+      pdf.line(34, y - 4, W - 34, y - 4);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(9);
       pdf.setTextColor(...dourado);
       pdf.text("PROGRAMA DO DIA", meio, y, { align: "center" });
 
-      y += 9;
-      pdf.setFontSize(10);
+      y += 10;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10.5);
       pdf.setTextColor(...creme);
       pdf.text("Cerimónia Civil — 14h", meio, y, { align: "center" });
 
-      y += 8;
+      y += 9;
       pdf.text("Cerimónia Religiosa", meio, y, { align: "center" });
-      y += 5;
-      pdf.setFontSize(8);
+      y += 5.5;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8.5);
+      pdf.setTextColor(...creme);
       pdf.text(`${wedding.igreja.nome}, ${wedding.igreja.morada}`, meio, y, {
         align: "center",
       });
 
-      y += 9;
-      pdf.setFontSize(10);
+      y += 10;
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10.5);
       pdf.text("Copo d'Água — 15h", meio, y, { align: "center" });
-      y += 5;
-      pdf.setFontSize(8);
+      y += 5.5;
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(8.5);
       pdf.text(`${wedding.local.nome}, ${wedding.local.morada}`, meio, y, {
         align: "center",
       });
