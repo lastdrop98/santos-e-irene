@@ -151,6 +151,9 @@ function ImprimirPage() {
           </div>
 
           <div className="max-w-md border-l-2 border-gold/60 pl-6 text-left">
+            <p className="mb-2 text-[10px] font-medium tracking-[0.45em] text-gold">
+              C O L O S S E N S E S  3 : 1 4
+            </p>
             <p className="font-serif font-medium italic text-lg leading-relaxed text-background drop-shadow-md">
               “{wedding.versiculoCapa.texto}”
             </p>
