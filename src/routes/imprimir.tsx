@@ -122,7 +122,8 @@ function ImprimirPage() {
           height={1408}
           className="absolute inset-0 h-full w-full object-cover print-exact"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 print-exact" />
+        <div className="absolute inset-0 bg-black/40 print-exact" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/55 to-black/90 print-exact" />
 
       <div className="relative flex min-h-[100svh] flex-col items-center justify-center px-8 py-16 text-center">
         <div className="flex max-w-2xl flex-col items-center gap-8">
@@ -150,6 +151,9 @@ function ImprimirPage() {
           </div>
 
           <div className="max-w-md border-l-2 border-gold/60 pl-6 text-left">
+            <p className="mb-2 text-[10px] font-medium tracking-[0.45em] text-gold">
+              C O L O S S E N S E S  3 : 1 4
+            </p>
             <p className="font-serif font-medium italic text-lg leading-relaxed text-background drop-shadow-md">
               “{wedding.versiculoCapa.texto}”
             </p>
@@ -159,8 +163,8 @@ function ImprimirPage() {
           </div>
 
           <div className="w-full max-w-md space-y-4 rounded-2xl border border-gold/30 bg-black/30 p-6 backdrop-blur-sm">
-            <p className="text-[10px] tracking-[0.25em] text-gold">
-              PROGRAMA DO DIA
+            <p className="text-[10px] font-medium tracking-[0.45em] text-gold">
+              P R O G R A M A  D O  D I A
             </p>
             <div className="space-y-3 text-sm font-medium text-background drop-shadow-md">
               <div className="flex items-start justify-between gap-4">
