@@ -163,8 +163,8 @@ function ImprimirPage() {
           </div>
 
           <div className="w-full max-w-md space-y-4 rounded-2xl border border-gold/30 bg-black/30 p-6 backdrop-blur-sm">
-            <p className="text-[10px] tracking-[0.25em] text-gold">
-              PROGRAMA DO DIA
+            <p className="text-[10px] font-medium tracking-[0.45em] text-gold">
+              P R O G R A M A  D O  D I A
             </p>
             <div className="space-y-3 text-sm font-medium text-background drop-shadow-md">
               <div className="flex items-start justify-between gap-4">
