@@ -133,24 +133,24 @@ function ImprimirPage() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <p className="text-[10px] tracking-[0.35em] text-background/85">
+            <p className="text-[10px] font-medium tracking-[0.35em] text-background drop-shadow-md">
               A UNIÃO MATRIMONIAL DE
             </p>
             <h1 className="font-script text-5xl leading-tight text-gold sm:text-6xl">
               {wedding.noivo.nome} &amp; {wedding.noiva.nome}
             </h1>
-            <p className="text-xs tracking-[0.3em] text-background/85">
+            <p className="text-xs font-medium tracking-[0.3em] text-background drop-shadow-md">
               {wedding.dataExtenso}
             </p>
           </div>
 
-          <div className="flex flex-col gap-1 text-sm tracking-wide text-background/80">
+          <div className="flex flex-col gap-1 text-sm font-medium tracking-wide text-background drop-shadow-md">
             <p>Filho de {wedding.noivo.pai} e {wedding.noivo.mae}</p>
             <p>Filha de {wedding.noiva.pai} e {wedding.noiva.mae}</p>
           </div>
 
           <div className="max-w-md border-l-2 border-gold/60 pl-6 text-left">
-            <p className="font-serif italic text-lg leading-relaxed text-background/90">
+            <p className="font-serif font-medium italic text-lg leading-relaxed text-background drop-shadow-md">
               “{wedding.versiculoCapa.texto}”
             </p>
             <p className="mt-2 text-xs tracking-[0.2em] text-gold">
@@ -162,14 +162,14 @@ function ImprimirPage() {
             <p className="text-[10px] tracking-[0.25em] text-gold">
               PROGRAMA DO DIA
             </p>
-            <div className="space-y-3 text-sm text-background/90">
+            <div className="space-y-3 text-sm font-medium text-background drop-shadow-md">
               <div className="flex items-start justify-between gap-4">
                 <span className="text-left">Cerimónia Civil</span>
                 <span className="font-semibold text-gold">14h</span>
               </div>
               <div className="flex flex-col gap-1 text-left">
                 <span>Cerimónia Religiosa</span>
-                <span className="text-xs text-background/70">
+                <span className="text-xs text-background">
                   {wedding.igreja.nome}, {wedding.igreja.morada}
                 </span>
               </div>
@@ -178,7 +178,7 @@ function ImprimirPage() {
                   <span>Copo d&apos;Água</span>
                   <span className="font-semibold text-gold">15h</span>
                 </div>
-                <span className="text-xs text-background/70">
+                <span className="text-xs text-background">
                   {wedding.local.nome}, {wedding.local.morada}
                 </span>
               </div>
