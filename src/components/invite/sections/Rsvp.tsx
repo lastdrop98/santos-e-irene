@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Reveal } from "@/components/invite/Reveal";
 import { wedding } from "@/config/wedding";
 import { supabase } from "@/integrations/supabase/client";
@@ -74,20 +74,22 @@ export function Rsvp() {
             </select>
           </div>
 
-          <div>
-            <label className="text-xs tracking-[0.12em] text-foreground/80" htmlFor="acompanhantes">
-              Número de acompanhantes
-            </label>
-            <input
-              id="acompanhantes"
-              name="acompanhantes"
-              type="number"
-              min={0}
-              max={20}
-              defaultValue={0}
-              className={fieldClass}
-            />
-          </div>
+          {conviteIndividual !== true && (
+            <div>
+              <label className="text-xs tracking-[0.12em] text-foreground/80" htmlFor="acompanhantes">
+                Número de acompanhantes
+              </label>
+              <input
+                id="acompanhantes"
+                name="acompanhantes"
+                type="number"
+                min={0}
+                max={20}
+                defaultValue={0}
+                className={fieldClass}
+              />
+            </div>
+          )}
 
           <div>
             <label className="text-xs tracking-[0.12em] text-foreground/80" htmlFor="mensagem">
