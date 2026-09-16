@@ -5,13 +5,13 @@ import type { Database } from "@/integrations/supabase/types";
 
 type Confirmacao = Database["public"]["Tables"]["confirmacoes"]["Row"];
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Painel de Administração — Área dos Noivos" },
+      { title: "Painel de Confirmações — Área dos Noivos" },
       { name: "description", content: "Lista de confirmações de presença do casamento de Santos e Irene." },
-      { property: "og:title", content: "Painel de Administração — Área dos Noivos" },
+      { property: "og:title", content: "Painel de Confirmações — Área dos Noivos" },
       { property: "og:description", content: "Lista de confirmações de presença do casamento de Santos e Irene." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -24,38 +24,11 @@ export const Route = createFileRoute("/_authenticated/admin")({
 function AdminPage() {
   const [confirmacoes, setConfirmacoes] = useState<Confirmacao[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
     let mounted = true;
 
     async function init() {
-      const { data: userData, error: userError } = await supabase.auth.getUser();
-      if (!mounted) return;
-
-      const user = userData.user;
-      if (userError || !user) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
-
-      const { data: roles } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id)
-        .eq("role", "admin");
-
-      if (!mounted) return;
-
-      if (!roles || roles.length === 0) {
-        setIsAdmin(false);
-        setLoading(false);
-        return;
-      }
-
-      setIsAdmin(true);
-
       const { data, error } = await supabase
         .from("confirmacoes")
         .select("*")
@@ -79,8 +52,6 @@ function AdminPage() {
   }, []);
 
   useEffect(() => {
-    if (!isAdmin) return;
-
     const channel = supabase
       .channel("confirmacoes-realtime")
       .on(
@@ -108,7 +79,7 @@ function AdminPage() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [isAdmin]);
+  }, []);
 
   const resumo = useMemo(() => {
     const total = confirmacoes.length;
@@ -147,23 +118,6 @@ function AdminPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <p className="text-sm tracking-widest text-muted-foreground">A CARREGAR...</p>
-      </div>
-    );
-  }
-
-  if (isAdmin === false) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center">
-        <h1 className="font-script text-3xl text-gold">Acesso reservado</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Não tem permissões para aceder a esta área.
-        </p>
-        <Link
-          to="/"
-          className="mt-6 inline-flex items-center justify-center rounded-full bg-gold px-6 py-2 text-xs tracking-[0.2em] text-background"
-        >
-          VOLTAR AO CONVITE
-        </Link>
       </div>
     );
   }
