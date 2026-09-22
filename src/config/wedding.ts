@@ -42,13 +42,13 @@ export const wedding = {
   igreja: {
     nome: "Igreja São Pedro São Paulo",
     morada: "Bairro 25 de Junho — Maputo",
-    mapa: "https://maps.google.com/?q=Igreja+Sao+Pedro+Sao+Paulo+Bairro+25+de+Junho+Maputo",
+    mapa: "https://maps.app.goo.gl/e4aJvbcpS9VZjETM7",
   },
 
   local: {
     nome: "Gabriela Eventos",
     morada: "Intaka, Talhão 340, Parcela 161 — Maputo",
-    mapa: "https://maps.app.goo.gl/anPzAmqTHCbmVKwg8",
+    mapa: "https://maps.app.goo.gl/Pvr9ExuBzVLBN2ve9",
   },
   xiguiane: { 
     dataExtenso: "Domingo, 29 de Novembro de 2026", 
@@ -56,7 +56,7 @@ export const wedding = {
     local: { 
       nome: "Paróquia Nossa Senhora do Rosário", 
       morada: "Hulene B, Maputo (Salão do Xiguiane)", 
-      mapa: "https://maps.google.com/?q=Paroquia+Nossa+Senhora+do+Rosario+Hulene+B+Maputo", },
+      mapa: "https://maps.app.goo.gl/ZsdaNjYiUqCqaeZ17", },
   },
 
   versiculoCapa: {
