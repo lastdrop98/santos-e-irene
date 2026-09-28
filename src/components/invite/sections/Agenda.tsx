@@ -42,7 +42,7 @@ export function Agenda() {
               {wedding.igreja.morada}
             </p>
             <a
-              href={wedding.igreja.mapa}
+              href="https://maps.app.goo.gl/NDQDmd6h8P8QiE5S7"
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-muted px-7 py-3 text-[11px] tracking-[0.25em] text-foreground/80 transition-colors hover:bg-muted/70"
@@ -64,7 +64,7 @@ export function Agenda() {
               {wedding.local.morada}
             </p>
             <a
-              href={wedding.local.mapa}
+              href="https://maps.app.goo.gl/KdxXqAiqLhr7qZRt7"
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-muted px-7 py-3 text-[11px] tracking-[0.25em] text-foreground/80 transition-colors hover:bg-muted/70"
