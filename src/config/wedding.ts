@@ -56,7 +56,7 @@ export const wedding = {
     local: { 
       nome: "Paróquia Nossa Senhora do Rosário", 
       morada: "Hulene B, Maputo (Salão do Xiguiane)", 
-      mapa: "https://maps.app.goo.gl/ZsdaNjYiUqCqaeZ17", },
+      mapa: "https://maps.app.goo.gl/x6dR7N9TH5SZHteH7", },
   },
 
   versiculoCapa: {
