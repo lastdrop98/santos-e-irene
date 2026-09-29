@@ -34,13 +34,20 @@ export function Rsvp() {
       : Math.max(0, Math.min(20, Number(form.get("acompanhantes") || 0) || 0));
     const mensagem = String(form.get("mensagem") || "").trim();
 
-    const tabela = conviteXiguiane === true ? "confirmacoes_xiguiane" : "confirmacoes";
-    const { error } = await supabase.from(tabela).insert({
-      nome,
-      presenca,
-      acompanhantes,
-      mensagem,
-    });
+    const { error } =
+      conviteXiguiane === true
+        ? await supabase.from("confirmacoes_xiguiane").insert({
+            nome,
+            presenca,
+            acompanhantes,
+            mensagem,
+          })
+        : await supabase.from("confirmacoes").insert({
+            nome,
+            presenca,
+            acompanhantes,
+            mensagem,
+          });
 
     setAEnviar(false);
     if (error) {
