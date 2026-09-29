@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 
 type Confirmacao = Database["public"]["Tables"]["confirmacoes"]["Row"];
+type ConfirmacaoXiguiane = Database["public"]["Tables"]["confirmacoes_xiguiane"]["Row"];
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -23,24 +24,26 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const [confirmacoes, setConfirmacoes] = useState<Confirmacao[]>([]);
+  const [confirmacoesXiguiane, setConfirmacoesXiguiane] = useState<ConfirmacaoXiguiane[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let mounted = true;
 
     async function init() {
-      const { data, error } = await supabase
-        .from("confirmacoes")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const [normalResult, xiguianeResult] = await Promise.all([
+        supabase.from("confirmacoes").select("*").order("created_at", { ascending: false }),
+        supabase.from("confirmacoes_xiguiane").select("*").order("created_at", { ascending: false }),
+      ]);
 
       if (!mounted) return;
 
-      if (error) {
-        console.error(error);
-      } else {
-        setConfirmacoes(data || []);
-      }
+      if (normalResult.error) console.error(normalResult.error);
+      else setConfirmacoes(normalResult.data || []);
+
+      if (xiguianeResult.error) console.error(xiguianeResult.error);
+      else setConfirmacoesXiguiane(xiguianeResult.data || []);
+
       setLoading(false);
     }
 
@@ -76,8 +79,35 @@ function AdminPage() {
       )
       .subscribe();
 
+    const xiguianeChannel = supabase
+      .channel("confirmacoes-xiguiane-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "confirmacoes_xiguiane" },
+        (payload) => {
+          setConfirmacoesXiguiane((prev) => {
+            if (payload.eventType === "INSERT") {
+              return [payload.new as ConfirmacaoXiguiane, ...prev];
+            }
+            if (payload.eventType === "UPDATE") {
+              return prev.map((c) =>
+                c.id === (payload.new as ConfirmacaoXiguiane).id
+                  ? (payload.new as ConfirmacaoXiguiane)
+                  : c,
+              );
+            }
+            if (payload.eventType === "DELETE") {
+              return prev.filter((c) => c.id !== (payload.old as ConfirmacaoXiguiane).id);
+            }
+            return prev;
+          });
+        },
+      )
+      .subscribe();
+
     return () => {
       supabase.removeChannel(channel);
+      supabase.removeChannel(xiguianeChannel);
     };
   }, []);
 
@@ -199,6 +229,67 @@ function AdminPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <div className="mt-10">
+          <div className="mb-4">
+            <h2 className="font-script text-3xl text-gold">Confirmações — Xiguiane (Domingo)</h2>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Respostas dos convites do domingo, 29 de Novembro de 2026 — Salão do Xiguiane.
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-gold/20 bg-card">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gold text-background">
+                  <tr>
+                    <th className="px-4 py-3 text-left font-medium">Nome</th>
+                    <th className="px-4 py-3 text-left font-medium">Presença</th>
+                    <th className="px-4 py-3 text-left font-medium">Acomp.</th>
+                    <th className="px-4 py-3 text-left font-medium">Mensagem</th>
+                    <th className="px-4 py-3 text-left font-medium">Presente</th>
+                    <th className="px-4 py-3 text-left font-medium">Data/Hora</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gold/10">
+                  {confirmacoesXiguiane.length === 0 && (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
+                        Ainda não há confirmações do Xiguiane.
+                      </td>
+                    </tr>
+                  )}
+                  {confirmacoesXiguiane.map((c) => (
+                    <tr key={c.id} className="hover:bg-gold/5">
+                      <td className="whitespace-nowrap px-4 py-3 font-medium text-foreground">{c.nome}</td>
+                      <td className="whitespace-nowrap px-4 py-3">
+                        <span
+                          className={`rounded-full px-2 py-0.5 text-[11px] tracking-wider ${
+                            c.presenca === "sim"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }`}
+                        >
+                          {c.presenca === "sim" ? "SIM" : "NÃO"}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-foreground">{c.acompanhantes}</td>
+                      <td className="max-w-xs px-4 py-3 text-foreground">
+                        <p className="truncate">{c.mensagem || "—"}</p>
+                      </td>
+                      <td className="max-w-xs px-4 py-3 text-foreground">
+                        <p className="truncate">{c.presente || "—"}</p>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                        {c.created_at ? new Date(c.created_at).toLocaleString("pt-MZ") : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
