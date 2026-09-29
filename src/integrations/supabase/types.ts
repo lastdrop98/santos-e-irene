@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      confirmacoes_xiguiane: {
+        Row: {
+          acompanhantes: number
+          created_at: string
+          id: string
+          mensagem: string
+          nome: string
+          presenca: string
+          presente: string
+        }
+        Insert: {
+          acompanhantes?: number
+          created_at?: string
+          id?: string
+          mensagem?: string
+          nome: string
+          presenca?: string
+          presente?: string
+        }
+        Update: {
+          acompanhantes?: number
+          created_at?: string
+          id?: string
+          mensagem?: string
+          nome?: string
+          presenca?: string
+          presente?: string
+        }
+        Relationships: []
+      }
       confirmacoes: {
         Row: {
           acompanhantes: number
