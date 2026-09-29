@@ -9,12 +9,15 @@ export function Rsvp() {
   const [aEnviar, setAEnviar] = useState(false);
   // null = ainda não sabemos (evita mismatch de hidratação); true = convite individual
   const [conviteIndividual, setConviteIndividual] = useState<boolean | null>(null);
+  const [conviteXiguiane, setConviteXiguiane] = useState<boolean | null>(null);
 
   useEffect(() => {
     const individual =
       window.location.pathname === "/individual" ||
       new URLSearchParams(window.location.search).get("tipo") === "individual";
+    const xiguiane = window.location.pathname === "/domingo";
     setConviteIndividual(individual);
+    setConviteXiguiane(xiguiane);
   }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -31,7 +34,8 @@ export function Rsvp() {
       : Math.max(0, Math.min(20, Number(form.get("acompanhantes") || 0) || 0));
     const mensagem = String(form.get("mensagem") || "").trim();
 
-    const { error } = await supabase.from("confirmacoes").insert({
+    const tabela = conviteXiguiane === true ? "confirmacoes_xiguiane" : "confirmacoes";
+    const { error } = await supabase.from(tabela).insert({
       nome,
       presenca,
       acompanhantes,
