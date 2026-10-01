@@ -121,6 +121,17 @@ function AdminPage() {
     return { total, sim, nao, pessoas };
   }, [confirmacoes]);
 
+  const resumoXiguiane = useMemo(() => {
+    const total = confirmacoesXiguiane.length;
+    const sim = confirmacoesXiguiane.filter((c) => c.presenca === "sim").length;
+    const nao = confirmacoesXiguiane.filter((c) => c.presenca === "nao").length;
+    const pendentes = total - sim - nao;
+    const pessoas = confirmacoesXiguiane
+      .filter((c) => c.presenca === "sim")
+      .reduce((sum, c) => sum + 1 + (c.acompanhantes || 0), 0);
+    return { total, sim, nao, pendentes, pessoas };
+  }, [confirmacoesXiguiane]);
+
   const exportarCSV = () => {
     const headers = ["Nome", "Presenca", "Acompanhantes", "Mensagem", "Presente", "Data/Hora"];
     const rows = confirmacoes.map((c) => [
