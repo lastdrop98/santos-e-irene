@@ -14,7 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      confirmacoes_xiguiane: {
+      confirmacoes: {
         Row: {
           acompanhantes: number
           created_at: string
@@ -44,7 +44,7 @@ export type Database = {
         }
         Relationships: []
       }
-      confirmacoes: {
+      confirmacoes_xiguiane: {
         Row: {
           acompanhantes: number
           created_at: string
