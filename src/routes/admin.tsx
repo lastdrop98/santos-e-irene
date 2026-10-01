@@ -121,6 +121,17 @@ function AdminPage() {
     return { total, sim, nao, pessoas };
   }, [confirmacoes]);
 
+  const resumoXiguiane = useMemo(() => {
+    const total = confirmacoesXiguiane.length;
+    const sim = confirmacoesXiguiane.filter((c) => c.presenca === "sim").length;
+    const nao = confirmacoesXiguiane.filter((c) => c.presenca === "nao").length;
+    const pendentes = total - sim - nao;
+    const pessoas = confirmacoesXiguiane
+      .filter((c) => c.presenca === "sim")
+      .reduce((sum, c) => sum + 1 + (c.acompanhantes || 0), 0);
+    return { total, sim, nao, pendentes, pessoas };
+  }, [confirmacoesXiguiane]);
+
   const exportarCSV = () => {
     const headers = ["Nome", "Presenca", "Acompanhantes", "Mensagem", "Presente", "Data/Hora"];
     const rows = confirmacoes.map((c) => [
@@ -238,6 +249,53 @@ function AdminPage() {
             <p className="mt-1 text-xs text-muted-foreground">
               Respostas dos convites do domingo, 29 de Novembro de 2026 — Salão do Xiguiane.
             </p>
+          </div>
+
+          <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+            <SummaryCard label="Confirmados" value={resumoXiguiane.sim} />
+            <SummaryCard label="Total de pessoas" value={resumoXiguiane.pessoas} />
+            <SummaryCard label="Pendentes" value={resumoXiguiane.pendentes} />
+            <SummaryCard label="Recusados" value={resumoXiguiane.nao} />
+          </div>
+
+          <div className="mb-6 rounded-xl border border-gold/20 bg-card p-5">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Resumo visual</p>
+            <div className="mt-3 flex h-3 w-full overflow-hidden rounded-full bg-muted">
+              {resumoXiguiane.total > 0 && (
+                <>
+                  <div className="bg-green-500" style={{ width: `${(resumoXiguiane.sim / resumoXiguiane.total) * 100}%` }} />
+                  <div className="bg-gold/60" style={{ width: `${(resumoXiguiane.pendentes / resumoXiguiane.total) * 100}%` }} />
+                  <div className="bg-red-400" style={{ width: `${(resumoXiguiane.nao / resumoXiguiane.total) * 100}%` }} />
+                </>
+              )}
+            </div>
+            <div className="mt-3 flex flex-wrap gap-4 text-[11px] tracking-wider text-muted-foreground">
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-green-500" /> Confirmados</span>
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-gold/60" /> Pendentes</span>
+              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-red-400" /> Recusados</span>
+            </div>
+          </div>
+
+          <div className="mb-6 rounded-xl border border-gold/20 bg-card p-5">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Confirmações recentes</p>
+            <ul className="mt-3 divide-y divide-gold/10">
+              {confirmacoesXiguiane.slice(0, 5).map((c) => (
+                <li key={c.id} className="flex items-center justify-between gap-3 py-2 text-sm">
+                  <span className="font-medium text-foreground">{c.nome}</span>
+                  <span className="flex items-center gap-3">
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] tracking-wider ${c.presenca === "sim" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
+                      {c.presenca === "sim" ? "SIM" : "NÃO"}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {c.created_at ? new Date(c.created_at).toLocaleString("pt-MZ") : "—"}
+                    </span>
+                  </span>
+                </li>
+              ))}
+              {confirmacoesXiguiane.length === 0 && (
+                <li className="py-4 text-center text-sm text-muted-foreground">Ainda não há confirmações do Xiguiane.</li>
+              )}
+            </ul>
           </div>
 
           <div className="overflow-hidden rounded-xl border border-gold/20 bg-card">
