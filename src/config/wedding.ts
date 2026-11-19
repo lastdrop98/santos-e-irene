@@ -35,7 +35,7 @@ export const wedding = {
 
   agenda: [
     { titulo: "Cerimónia Civil", hora: "14h" },
-    { titulo: "Cerimónia Religiosa", hora: "A confirmar" },
+    { titulo: "Cerimónia Religiosa", hora: "11h" },
     { titulo: "Copo d'Água", hora: "15h" },
   ],
 

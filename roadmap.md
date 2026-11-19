@@ -1,5 +1,6 @@
 # Tarefas em aberto
 
+- [x] Atualizar a cerimónia religiosa de sábado para 11h em todas as versões.
 - [x] Substituir foto do Pirex Oval na lista de presentes pela imagem real enviada.
 - [x] Criar rota `/admin` protegida com painel de confirmações, resumo, Realtime e exportação CSV.
 - [x] Corrigir erros de typecheck causados pela rota `/admin` inexistente.

@@ -172,7 +172,7 @@ function ImprimirPage() {
                 <span className="font-semibold text-gold">14h</span>
               </div>
               <div className="flex flex-col gap-1 text-left">
-                <span>Cerimónia Religiosa</span>
+                <span>Cerimónia Religiosa — 11h</span>
                 <span className="text-xs text-background">
                   {wedding.igreja.nome}, {wedding.igreja.morada}
                 </span>
